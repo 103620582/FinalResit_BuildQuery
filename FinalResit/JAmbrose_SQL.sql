@@ -113,3 +113,39 @@ GO
 -- SELECT * FROM ORDERLINE;
 -- GO
 
+INSERT INTO ORGANISATION (OrgID, OrganisationName) VALUES ('DODG', 'Dod & Gy Widget Importers');
+INSERT INTO ORGANISATION (OrgID, OrganisationName) VALUES ('SWUT', 'Swinburne University of Technology');
+
+INSERT INTO CLIENT (ClientID, Name, Phone, OrgID) VALUES (12, 'Fred Flintstone', '(03)5555-1234', 'SWUT');
+INSERT INTO CLIENT (ClientID, Name, Phone, OrgID) VALUES (15, 'Barney Rubble', '(03)5555-2345', 'DODG');
+INSERT INTO CLIENT (ClientID, Name, Phone, OrgID) VALUES (18, 'Wilma Flinstone', '(03)5555-3456', 'SWUT');
+INSERT INTO CLIENT (ClientID, Name, Phone, OrgID) VALUES (21, 'Betty Rubble', '(03)5555-4567', 'DODG');
+INSERT INTO CLIENT (ClientID, Name, Phone, OrgID) VALUES (33, 'Joy Ambrose', '103620582', 'JOYA');
+
+INSERT INTO MENUITEM (ItemID, Desceription, ServesPerUnit, UnitPrice) VALUES (3214, 'Tropical Pizza - Large', 2, 16.00);
+INSERT INTO MENUITEM (ItemID, Desceription, ServesPerUnit, UnitPrice) VALUES (3216, 'Tropical Pizza - Small', 1, 12.00);
+INSERT INTO MENUITEM (ItemID, Desceription, ServesPerUnit, UnitPrice) VALUES (3218, 'Tropical Pizza - Family', 4, 23.00);
+INSERT INTO MENUITEM (ItemID, Desceription, ServesPerUnit, UnitPrice) VALUES (4325, 'Can - Coke Zero', 1, 2.50);
+INSERT INTO MENUITEM (ItemID, Desceription, ServesPerUnit, UnitPrice) VALUES (4326, 'Can - Lemonade', 1, 2.50);
+INSERT INTO MENUITEM (ItemID, Desceription, ServesPerUnit, UnitPrice) VALUES (4327, 'Can - Harden Up', 1, 7.50);
+
+INSERT INTO [ORDER] (ClientID, OrderDate, DeliveryAddress) VALUES (12, '2021-10-20', 'Room TB225 - SUT - 1 John Street, Hawthorn, 3122');
+INSERT INTO [ORDER] (ClientID, OrderDate, DeliveryAddress) VALUES (21, '2021-10-14', 'Room ATC009 - SUT - 1 John Street, Hawthorn, 3122');
+INSERT INTO [ORDER] (ClientID, OrderDate, DeliveryAddress) VALUES (21, '2021-10-27', 'Room TB225 - SUT - 1 John Street, Hawthorn, 3122');
+INSERT INTO [ORDER] (ClientID, OrderDate, DeliveryAddress) VALUES (15,	'2021-10-20',	'The George - 1 John Street, Hawthorn, 3122');
+INSERT INTO [ORDER] (ClientID, OrderDate, DeliveryAddress) VALUES (18,	'2021-10-30',	'Room TB225 - SUT - 1 John Street, Hawthorn, 3122');
+
+INSERT INTO ORDERLINE (ItemID, ClientID, OrderDate, Qty) VALUES (3216, 12, '2021-10-20',	2);
+INSERT INTO ORDERLINE (ItemID, ClientID, OrderDate, Qty) VALUES (4326,	12,	'2021-10-20',	1);
+INSERT INTO ORDERLINE (ItemID, ClientID, OrderDate, Qty) VALUES (3218,	21,	'2021-10-14',	1);
+INSERT INTO ORDERLINE (ItemID, ClientID, OrderDate, Qty) VALUES (3214,	21,	'2021-10-14',	1);
+INSERT INTO ORDERLINE (ItemID, ClientID, OrderDate, Qty) VALUES (4325,	21,	'2021-10-14',	4);
+INSERT INTO ORDERLINE (ItemID, ClientID, OrderDate, Qty) VALUES (4327,	21,	'2021-10-14',	2);
+INSERT INTO ORDERLINE (ItemID, ClientID, OrderDate, Qty) VALUES (3216,	21,	'2021-10-27',	1);
+INSERT INTO ORDERLINE (ItemID, ClientID, OrderDate, Qty) VALUES (4327,	21,	'2021-10-27',	1);
+INSERT INTO ORDERLINE (ItemID, ClientID, OrderDate, Qty) VALUES (3218,	21,	'2021-10-27',	2);
+INSERT INTO ORDERLINE (ItemID, ClientID, OrderDate, Qty) VALUES (3216,	15,	'2021-10-20',	2);
+INSERT INTO ORDERLINE (ItemID, ClientID, OrderDate, Qty) VALUES (4326,	15,	'2021-10-20',	1);
+INSERT INTO ORDERLINE (ItemID, ClientID, OrderDate, Qty) VALUES (3216,	18,	'2021-10-30',	1);
+INSERT INTO ORDERLINE (ItemID, ClientID, OrderDate, Qty) VALUES (4327,	18,	'2021-10-30',	1);
+

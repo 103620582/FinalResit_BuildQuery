@@ -64,7 +64,7 @@ GO
 
 CREATE TABLE MENUITEM (
     ItemID          INT
-,   Desceription    NVARCHAR(100) NOT NULL
+,   Description    NVARCHAR(100) NOT NULL
 ,   ServesPerUnit   INT NOT NULL
 ,   UnitPrice       MONEY NOT NULL
 ,   PRIMARY KEY (ItemID)
@@ -122,12 +122,12 @@ INSERT INTO CLIENT (ClientID, Name, Phone, OrgID) VALUES (18, 'Wilma Flinstone',
 INSERT INTO CLIENT (ClientID, Name, Phone, OrgID) VALUES (21, 'Betty Rubble', '(03)5555-4567', 'DODG');
 INSERT INTO CLIENT (ClientID, Name, Phone, OrgID) VALUES (33, 'Joy Ambrose', '103620582', 'JOYA');
 
-INSERT INTO MENUITEM (ItemID, Desceription, ServesPerUnit, UnitPrice) VALUES (3214, 'Tropical Pizza - Large', 2, 16.00);
-INSERT INTO MENUITEM (ItemID, Desceription, ServesPerUnit, UnitPrice) VALUES (3216, 'Tropical Pizza - Small', 1, 12.00);
-INSERT INTO MENUITEM (ItemID, Desceription, ServesPerUnit, UnitPrice) VALUES (3218, 'Tropical Pizza - Family', 4, 23.00);
-INSERT INTO MENUITEM (ItemID, Desceription, ServesPerUnit, UnitPrice) VALUES (4325, 'Can - Coke Zero', 1, 2.50);
-INSERT INTO MENUITEM (ItemID, Desceription, ServesPerUnit, UnitPrice) VALUES (4326, 'Can - Lemonade', 1, 2.50);
-INSERT INTO MENUITEM (ItemID, Desceription, ServesPerUnit, UnitPrice) VALUES (4327, 'Can - Harden Up', 1, 7.50);
+INSERT INTO MENUITEM (ItemID, Description, ServesPerUnit, UnitPrice) VALUES (3214, 'Tropical Pizza - Large', 2, 16.00);
+INSERT INTO MENUITEM (ItemID, Description, ServesPerUnit, UnitPrice) VALUES (3216, 'Tropical Pizza - Small', 1, 12.00);
+INSERT INTO MENUITEM (ItemID, Description, ServesPerUnit, UnitPrice) VALUES (3218, 'Tropical Pizza - Family', 4, 23.00);
+INSERT INTO MENUITEM (ItemID, Description, ServesPerUnit, UnitPrice) VALUES (4325, 'Can - Coke Zero', 1, 2.50);
+INSERT INTO MENUITEM (ItemID, Description, ServesPerUnit, UnitPrice) VALUES (4326, 'Can - Lemonade', 1, 2.50);
+INSERT INTO MENUITEM (ItemID, Description, ServesPerUnit, UnitPrice) VALUES (4327, 'Can - Harden Up', 1, 7.50);
 
 INSERT INTO [ORDER] (ClientID, OrderDate, DeliveryAddress) VALUES (12, '2021-10-20', 'Room TB225 - SUT - 1 John Street, Hawthorn, 3122');
 INSERT INTO [ORDER] (ClientID, OrderDate, DeliveryAddress) VALUES (21, '2021-10-14', 'Room ATC009 - SUT - 1 John Street, Hawthorn, 3122');
@@ -148,4 +148,33 @@ INSERT INTO ORDERLINE (ItemID, ClientID, OrderDate, Qty) VALUES (3216,	15,	'2021
 INSERT INTO ORDERLINE (ItemID, ClientID, OrderDate, Qty) VALUES (4326,	15,	'2021-10-20',	1);
 INSERT INTO ORDERLINE (ItemID, ClientID, OrderDate, Qty) VALUES (3216,	18,	'2021-10-30',	1);
 INSERT INTO ORDERLINE (ItemID, ClientID, OrderDate, Qty) VALUES (4327,	18,	'2021-10-30',	1);
+
+------ QUERY 1
+
+SELECT OG.OrganisationName, C.Name, OL.OrderDate, OD.DeliveryAddress, M.Description, OL.Qty
+FROM [ORDER] OD
+INNER JOIN CLIENT C ON C.ClientID = OD.ClientID
+INNER JOIN ORGANISATION OG ON OG.OrgID = C.OrgID
+INNER JOIN ORDERLINE OL ON OL.ClientID = OD.ClientID AND OD.OrderDate = OL.OrderDate
+INNER JOIN MENUITEM M ON M.ItemID = OL.ItemID;
+
+------ QUERY 2
+
+SELECT OG.OrgID, M.Description, SUM(Qty) as 'Total Quantity Ordered'
+FROM MENUITEM M
+INNER JOIN ORDERLINE OL ON OL.ItemID = M.ItemID
+INNER JOIN CLIENT C ON OL.ClientID = C.ClientID
+INNER JOIN ORGANISATION OG ON C.OrgID = OG.OrgID
+GROUP BY OG.OrgID, M.Description
+ORDER BY OrgID ASC
+
+------ QUERY 3
+
+SELECT OL.ItemID, OL.ClientID, OL.OrderDate, OL.Qty, M.Description, M.UnitPrice
+FROM ORDERLINE OL
+INNER JOIN MENUITEM M ON OL.ItemID = M.ItemID
+WHERE (UnitPrice = (
+    SELECT MAX(UnitPrice)
+    FROM MENUITEM M)
+    )
 

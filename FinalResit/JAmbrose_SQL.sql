@@ -190,3 +190,26 @@ INNER JOIN ORGANISATION OG ON OG.OrgID = C.OrgID
 INNER JOIN ORDERLINE OL ON OL.ClientID = OD.ClientID AND OD.OrderDate = OL.OrderDate
 INNER JOIN MENUITEM M ON M.ItemID = OL.ItemID;
 
+
+/* ------------- Task 6 -------------- */
+
+-- Q1
+
+SELECT COUNT(*) AS 'Total ORDERLINE Count' FROM ORDERLINE;
+    -- Total count (13) matches total rows returned in Query 1
+
+-- Q2
+
+SELECT SUM(Qty) AS 'Total Quantity Ordered'
+FROM MENUITEM M
+INNER JOIN ORDERLINE OL ON OL.ItemID = M.ItemID
+INNER JOIN CLIENT C ON OL.ClientID = C.ClientID
+INNER JOIN ORGANISATION OG ON C.OrgID = OG.OrgID
+    -- Total count (20) matches manual count
+
+-- Q3
+
+SELECT * FROM MENUITEM M
+ORDER BY UnitPrice DESC;
+    -- Highest number returned matches the values returned in query
+

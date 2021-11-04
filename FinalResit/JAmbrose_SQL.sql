@@ -178,3 +178,15 @@ WHERE (UnitPrice = (
     FROM MENUITEM M)
     )
 
+
+
+/* ------------- Task 5 -------------- */
+
+CREATE VIEW [TASK_5] AS
+SELECT OG.OrganisationName, C.Name, OL.OrderDate, OD.DeliveryAddress, M.Description, OL.Qty
+FROM [ORDER] OD
+INNER JOIN CLIENT C ON C.ClientID = OD.ClientID
+INNER JOIN ORGANISATION OG ON OG.OrgID = C.OrgID
+INNER JOIN ORDERLINE OL ON OL.ClientID = OD.ClientID AND OD.OrderDate = OL.OrderDate
+INNER JOIN MENUITEM M ON M.ItemID = OL.ItemID;
+
